@@ -1,0 +1,48 @@
+Name: service.dfs
+ListenOn: 0.0.0.0:20640
+Etcd:
+  Hosts:
+    - etcd:2379
+  Key: service.dfs
+Timeout: 0
+Log:
+  ServiceName: service.dfs
+  #Mode: file
+  #Path: ../logs/dfs
+  Level: debug
+#监控
+Prometheus:
+  Host: 0.0.0.0
+  Port: 20641
+  Path: /metrics
+#链路追踪
+Telemetry:
+  Name: service.dfs
+  Endpoint: jaeger:4317
+  Sampler: 1.0
+  Batcher: otlpgrpc
+  
+MiniHttp:
+  Name: service.dfs.minihttp
+  Host: 0.0.0.0
+  Port: 11701
+  Timeout: 0
+Cache:
+  - Host: redis:6379
+Minio:
+  Endpoint: minio:9000
+  AccessKeyID: minio
+  SecretAccessKey: miniostorage
+  UseSSL: false
+  Bucket:
+    Documents: documents
+    Photos: photos
+    Videos: videos
+    EncryptedFiles: encryptedfiles
+IdGen:
+  Etcd:
+    Hosts:
+      - etcd:2379
+    Key: service.idgen
+SSDB:
+  - Host: redis:6379 # if use pika, change to 9221

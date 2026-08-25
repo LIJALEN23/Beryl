@@ -1,0 +1,44 @@
+Name: service.biz_service
+ListenOn: 0.0.0.0:20020
+Etcd:
+  Hosts:
+    - etcd:2379
+  Key: service.biz_service
+Log:
+  ServiceName: service.biz_service
+  #Mode: file
+  #Path: ../logs/biz
+  Level: debug
+#监控
+Prometheus:
+  Host: 0.0.0.0
+  Port: 20021
+  Path: /metrics
+#链路追踪
+Telemetry:
+  Name: service.biz_service
+  Endpoint: jaeger:4317
+  Sampler: 1.0
+  Batcher: otlpgrpc
+  
+Mysql:
+  DSN: teamgram:teamgram@tcp(mysql:3306)/teamgram?charset=utf8mb4&parseTime=true
+  Active: 64
+  Idle: 64
+  IdleTimeout: 4h
+
+Cache:
+  - Host: redis:6379
+KV:
+  - Host: redis:6379
+
+MediaClient:
+  Etcd:
+    Hosts:
+      - etcd:2379
+    Key: service.media
+IdgenClient:
+  Etcd:
+    Hosts:
+      - etcd:2379
+    Key: service.idgen

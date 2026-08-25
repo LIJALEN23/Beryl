@@ -1,0 +1,48 @@
+Name: interface.gateway
+ListenOn: 0.0.0.0:20110
+Etcd:
+  Hosts:
+    - etcd:2379
+  Key: interface.gateway
+Log:
+  ServiceName: interface.gateway
+  #Mode: file
+  #Path: ../logs/gnetway
+  Level: debug
+#监控
+Prometheus:
+  Host: 0.0.0.0
+  Port: 20111
+  Path: /metrics
+#链路追踪
+Telemetry:
+  Name: interface.gateway
+  Endpoint: jaeger:4317
+  Sampler: 1.0
+  Batcher: otlpgrpc
+  
+RSAKey:
+  - KeyFile: "./server_pkcs1.key"
+    KeyFingerprint: "12240908862933197005"
+KeyFile: "./server_pkcs1.key"
+KeyFingerprint: "12240908862933197005"
+MaxProc: 4
+
+Gnetway:
+  Server:
+    - Proto: tcp
+      Addresses:
+        - 0.0.0.0:10443
+        - 0.0.0.0:5222
+    - Proto: websocket
+      Addresses:
+        - 0.0.0.0:11443
+  Multicore: false
+  SendBuf: 65536
+  ReceiveBuf: 65536
+
+Session:
+  Etcd:
+    Hosts:
+      - etcd:2379
+    Key: interface.session

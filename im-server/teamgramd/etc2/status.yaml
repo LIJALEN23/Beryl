@@ -1,0 +1,27 @@
+Name: service.status
+ListenOn: 0.0.0.0:20670
+Etcd:
+  Hosts:
+    - etcd:2379
+  Key: service.status
+Log:
+  ServiceName: service.status
+  #Mode: file
+  #Path: ../logs/status
+  Level: debug
+#监控
+Prometheus:
+  Host: 0.0.0.0
+  Port: 20671
+  Path: /metrics
+#链路追踪
+Telemetry:
+  Name: service.status
+  Endpoint: jaeger:4317
+  Sampler: 1.0
+  Batcher: otlpgrpc
+  
+Status:
+  - Host: redis:6379
+
+StatusExpire: 90

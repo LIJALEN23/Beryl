@@ -1,0 +1,44 @@
+# ============================================================
+# DeerFlow Gateway 调试请求集
+# 前置条件:
+#   1. Gateway 在 8001 运行 (VSCode F5 "Gateway HTTP 链路 (8001)")
+#   2. llama-server 在 8080 运行 (本地模型)
+# 用法: VSCode 安装 "REST Client" 扩展 (humao.rest-client),
+#       打开本文件, 按顺序点击每个请求上方的 "Send Request"
+# ============================================================
+
+### 1. 健康检查
+GET http://127.0.0.1:8001/health
+
+### 2. 创建 thread —— 复制响应里的 thread_id, 填到第 3 步的 <THREAD_ID>
+# 注: Gateway 开启 CSRF 双提交防护, POST 需带 Cookie + X-CSRF-Token (相等即可)
+POST http://127.0.0.1:8001/api/threads
+Content-Type: application/json
+Cookie: csrf_token=debugcsrf
+X-CSRF-Token: debugcsrf
+
+{
+  "assistant_id": "lead_agent"
+}
+
+### 3. 触发 agent 运行 (SSE 流式) —— 核心链路入口, 断点打在这里之前
+# 把 <THREAD_ID> 替换成第 2 步返回的 thread_id
+# 推荐断点: app/gateway/routers/thread_runs.py:846 stream_run()
+#           packages/harness/deerflow/runtime/runs/worker.py:561 run_agent()
+POST http://127.0.0.1:8001/api/threads/<THREAD_ID>/runs/stream
+Content-Type: application/json
+Cookie: csrf_token=debugcsrf
+X-CSRF-Token: debugcsrf
+
+{
+  "assistant_id": "lead_agent",
+  "messages": [
+    {
+      "role": "user",
+      "content": "你好，请用一句话介绍你自己"
+    }
+  ]
+}
+
+### 4. 查看 thread 消息 (验证 run 结果已持久化)
+GET http://127.0.0.1:8001/api/threads/<THREAD_ID>/messages

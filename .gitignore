@@ -1,0 +1,57 @@
+# ===== Python (local-agent / cloud-agent backend) =====
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+# API key 等机密，绝不入库（注意：gitignore 只认行首 #，注释必须独立成行）
+.env
+.env.*
+!.env.example
+.ruff_cache/
+.pytest_cache/
+.mypy_cache/
+dist/
+build/
+*.whl
+
+# ===== Go (im-server) =====
+bin/
+*.exe
+*.test
+*.out
+coverage.out
+# GoLand/Delve 调试残留二进制（曾误提交 3×119MB）
+__debug_bin*
+
+# ===== Web (im-web / cloud-agent frontend) =====
+node_modules/
+.next/
+web/dist/
+npm-debug.log*
+# sourcemap 纯调试用，运行时不需要
+*.js.map
+
+# ===== Android (im-android, 未来) =====
+.gradle/
+android/build/
+android/local.properties
+*.apk
+*.aab
+*.keystore
+captures/
+
+# ===== DeerFlow(cloud-agent) 上游无价值产物 =====
+cloud-agent/frontend/public/demo/threads/
+cloud-agent/pr-build/
+cloud-agent/docs/pr-evidence/
+
+# ===== 通用 =====
+.DS_Store
+*.log
+*.swp
+.idea/
+.vscode/
+
+# 设计草稿（暂不入库）
+DRAFT.md

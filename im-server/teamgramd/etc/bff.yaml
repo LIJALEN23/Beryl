@@ -1,0 +1,78 @@
+Name: bff.bff
+ListenOn: 127.0.0.1:20010
+Etcd:
+  Hosts:
+    - 127.0.0.1:2379
+  Key: bff.bff
+Timeout: 0
+Log:
+  ServiceName: bff.bff
+  Mode: file
+  Path: ../logs/bff
+  Level: debug
+##监控
+#Prometheus:
+#  Host: 0.0.0.0
+#  Port: 20011
+#  Path: /metrics
+##链路追踪
+#Telemetry:
+#  Name: bff.bff
+#  Endpoint: http://127.0.0.1:14268/api/traces
+#  Sampler: 1.0
+#  Batcher: jaeger
+
+KV:
+  - Host: localhost:6379
+
+Code:
+  Name: "none"
+  SendCodeUrl: ""
+  VerifyCodeUrl: ""
+  Key: ""
+  Secret: ""
+  RegionId: ""
+
+BizServiceClient:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: service.biz_service
+AuthSessionClient:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: service.authsession
+MediaClient:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: service.media
+  Timeout: 0
+IdgenClient:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: service.idgen
+MsgClient:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: messenger.msg
+  Timeout: 0
+DfsClient:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: service.dfs
+  Timeout: 0
+StatusClient:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: service.status
+
+SyncClient:
+  Topic:   "Sync-T"
+  Brokers:
+    - 127.0.0.1:9094

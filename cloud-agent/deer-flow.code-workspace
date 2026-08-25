@@ -1,0 +1,72 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "js/ts.tsdk.path": "frontend/node_modules/typescript/lib",
+    "python-envs.pythonProjects": [
+      {
+        "path": "backend",
+        "envManager": "ms-python.python:venv",
+        "packageManager": "ms-python.python:pip",
+        "workspace": "deer-flow"
+      }
+    ]
+  },
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Debug Lead Agent",
+        "type": "debugpy",
+        "request": "launch",
+        "program": "${workspaceFolder}/backend/debug.py",
+        "console": "integratedTerminal",
+        "cwd": "${workspaceFolder}/backend",
+        "env": {
+          "PYTHONPATH": "${workspaceFolder}/backend"
+        },
+        "justMyCode": false
+      },
+      {
+        "name": "Debug Lead Agent (justMyCode)",
+        "type": "debugpy",
+        "request": "launch",
+        "program": "${workspaceFolder}/backend/debug.py",
+        "console": "integratedTerminal",
+        "cwd": "${workspaceFolder}/backend",
+        "env": {
+          "PYTHONPATH": "${workspaceFolder}/backend"
+        },
+        "justMyCode": true
+      },
+      {
+        "name": "Gateway HTTP 链路 (8001)",
+        "type": "debugpy",
+        "request": "launch",
+        "module": "uvicorn",
+        "args": [
+          "app.gateway.app:app",
+          "--host",
+          "127.0.0.1",
+          "--port",
+          "8001"
+        ],
+        "console": "integratedTerminal",
+        "cwd": "${workspaceFolder}/backend",
+        "env": {
+          "PYTHONPATH": "${workspaceFolder}/backend",
+          "PYTHONIOENCODING": "utf-8",
+          "PYTHONUTF8": "1",
+          "DEER_FLOW_HOME": "${workspaceFolder}/debug-runtime/deer-flow-home"
+        },
+        "python": "${workspaceFolder}/backend/.venv/bin/python",
+        "justMyCode": false,
+        "preLaunchTask": "debug-env-start",
+        "postDebugTask": "debug-env-stop"
+      }
+    ]
+  }
+}

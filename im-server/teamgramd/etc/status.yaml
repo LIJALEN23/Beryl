@@ -1,0 +1,27 @@
+Name: service.status
+ListenOn: 127.0.0.1:20670
+Etcd:
+  Hosts:
+    - 127.0.0.1:2379
+  Key: service.status
+Log:
+  ServiceName: service.status
+  Mode: file
+  Path: ../logs/status
+  Level: debug
+##监控
+#Prometheus:
+#  Host: 0.0.0.0
+#  Port: 20671
+#  Path: /metrics
+##链路追踪
+#Telemetry:
+#  Name: service.status
+#  Endpoint: http://127.0.0.1:14268/api/traces
+#  Sampler: 1.0
+#  Batcher: jaeger
+  
+Status:
+  - Host: 127.0.0.1:6379
+
+StatusExpire: 90
