@@ -1,0 +1,22 @@
+diff --git a/webview/platform/mac/webview_mac.mm b/webview/platform/mac/webview_mac.mm
+index 708d0d6..29fb9d3 100644
+--- a/webview/platform/mac/webview_mac.mm
++++ b/webview/platform/mac/webview_mac.mm
+@@ -309,7 +309,7 @@ using TaskPointer = id<WKURLSchemeTask>;
+ - (void) dealloc {
+ 	for (const auto &[task, dataTask] : base::take(_redirectedTasks)) {
+ 		NSError *error = [NSError
+-			errorWithDomain:@"org.telegram.desktop"
++			errorWithDomain:@"net.teamgram.desktop"
+ 			code:404
+ 			userInfo:nil];
+ 		[task didFailWithError:error];
+@@ -511,7 +511,7 @@ Instance::~Instance() {
+ }
+ 
+ void Instance::TaskFail(TaskPointer task) {
+-	[task didFailWithError:[NSError errorWithDomain:@"org.telegram.desktop" code:404 userInfo:nil]];
++	[task didFailWithError:[NSError errorWithDomain:@"net.teamgram.desktop" code:404 userInfo:nil]];
+ }
+ 
+ void Instance::taskFail(TaskPointer task, int indexToCheck) {

@@ -1,0 +1,13 @@
+diff --git a/ui/text/text_entity.cpp b/ui/text/text_entity.cpp
+index 810f576..9ae3a27 100644
+--- a/ui/text/text_entity.cpp
++++ b/ui/text/text_entity.cpp
+@@ -113,7 +113,7 @@ base::flat_set<int32> CreateValidProtocols() {
+ 	addOne(QString::fromLatin1("http"));
+ 	addOne(QString::fromLatin1("https"));
+ 	addOne(QString::fromLatin1("ftp"));
+-	addOne(QString::fromLatin1("tg")); // local urls
++	addOne(QString::fromLatin1("tg2")); // local urls
+ 	return result;
+ }
+ 

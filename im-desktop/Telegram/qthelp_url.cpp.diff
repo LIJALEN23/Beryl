@@ -1,0 +1,13 @@
+diff --git a/base/qthelp_url.cpp b/base/qthelp_url.cpp
+index eed4439..f14d615 100644
+--- a/base/qthelp_url.cpp
++++ b/base/qthelp_url.cpp
+@@ -38,7 +38,7 @@ bool IsGoodProtocol(const QString &protocol) {
+ 	};
+ 	return equals(qstr("http"))
+ 		|| equals(qstr("https"))
+-		|| equals(qstr("tg"))
++		|| equals(qstr("tg2"))
+ 		|| equals(qstr("ton"))
+ 		|| equals(qstr("tonsite"));
+ }
